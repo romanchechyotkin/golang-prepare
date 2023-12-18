@@ -47,7 +47,7 @@ func main() {
 		}()
 	}
 
-	time.AfterFunc(time.Second, func() {
+	time.AfterFunc(2*time.Second+999*time.Millisecond, func() {
 		cancel()
 	})
 	wg.Wait()
