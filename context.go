@@ -51,7 +51,24 @@ func main() {
 		cancel()
 	})
 	wg.Wait()
+	log.Println("completed")
 
+	// ------------------------------------------------------------------------------------------
+
+	ctx = context.Background()
+	ctx, cancel = context.WithTimeout(ctx, 7*time.Second)
+	defer cancel()
+
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		i := i
+		go func() {
+			defer wg.Done()
+			work(ctx, i)
+		}()
+	}
+
+	wg.Wait()
 	log.Println("completed")
 }
 
