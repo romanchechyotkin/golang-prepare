@@ -52,4 +52,5 @@ func compress(in string) string {
 	res.WriteString(fmt.Sprintf("%s%d", string(currChar), counter))
 
 	return res.String()
+
 }
