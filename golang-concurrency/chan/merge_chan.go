@@ -18,18 +18,19 @@ func main() {
 	close(ch2)
 
 	ch3 := merge[int](ch1, ch2)
-
-	for v := range ch3 {
-		fmt.Println(v)
+	for i := range ch3 {
+		fmt.Println(i)
 	}
 }
 
 func merge[T any](chans ...chan T) chan T {
 	result := make(chan T)
 	wg := sync.WaitGroup{}
+
 	for _, singleChan := range chans {
 		wg.Add(1)
 		singleChan := singleChan
+
 		go func() {
 			defer wg.Done()
 			for val := range singleChan {
