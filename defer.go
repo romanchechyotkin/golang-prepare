@@ -25,7 +25,7 @@ func inc() (i int) {
 
 func foo() (result string) {
 	defer func() {
-		result = "Change World" // change value at the very last moment
+		result = "Change World"
 	}()
 
 	return "Hello World"
