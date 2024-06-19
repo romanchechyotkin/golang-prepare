@@ -1,9 +1,28 @@
 package main
 
-import "log"
+import (
+	"log"
+	"time"
+)
 
 func main() {
-	for i := range square(gen(1, 2, 3, 4, 5)) {
+	genCh := make(chan int)
+
+	go func() {
+		defer close(genCh)
+		for i := 0; i < 10; i++ {
+			time.Sleep(time.Millisecond * 500)
+			genCh <- i
+		}
+	}()
+
+	go func() {
+		for i := range square(gen(1, 2, 3, 4, 5)) {
+			log.Println(i)
+		}
+	}()
+
+	for i := range square(genCh) {
 		log.Println(i)
 	}
 }
